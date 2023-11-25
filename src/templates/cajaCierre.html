@@ -1,0 +1,245 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Form Start -->
+ <form action="{{url_for('add_cajaCierre')}}" method="POST" enctype = "multipart/form-data">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <form>
+                                 <div class="table-responsive row justify-content-center mb-4">
+                                     <div class="col-lg-3 col-sm-12">
+                                        <label class="form-label" for="startDate">Fecha de Cierre</label>
+                                      </div>
+                                     <div class="col-lg-3 col-sm-12">
+                                        <input id="startDate" name="fechaCierre"  class="form-control" type="date" value="{{fecha}}" required="required"/>
+                                     </div>
+                                     <div class="col-lg-2 col-sm-6">
+                                         <button type="submit" class="btn btn-lg btn-primary" name="accion_btn" value="buscar">
+                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#f9fafb}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                              Buscar
+                                         </button>
+                                     </div>
+                                     <div class="col-lg-2 col-sm-6">
+                                        <div id="dvjson"></div>
+                                        <a id='DLtoExcel-2' target="_blank"  class="btn btn-lg  btn-secondary">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#ffffff}</style><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM216 232V334.1l31-31c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0l-72-72c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l31 31V232c0-13.3 10.7-24 24-24s24 10.7 24 24z"/></svg>
+                                             Exportar</a>
+                                     </div>
+                                     {% if fecha==fechaDeHoy %}
+                                     <div class="col-lg-2 col-sm-6">
+                                        <a href="/cargarImagen"  class="btn btn-lg  btn-primary"><i class="fas fa-regular fa-image"></i> Capturas</a>
+                                     </div>
+                                    {% endif %}
+
+                                     <br>
+                                 </div>
+                                 <div class="col-sm-12 col-xl-12">
+                                     <h6 class="mb-4">Cierre de Caja  - - <span class="font-weight-bold">AGENTE</span></h6>
+                                 </div>
+                                 <div class="table-responsive">
+
+                                    <table id='tableData' class="table text-start align-middle table-bordered table-hover mb-0" style="font-size: .8em;">
+                                        <thead>
+                                            <tr class="text-dark">
+                                                <th class="small" scope="col">Id</th>
+                                                <th class="small" scope="col">Banco</th>
+                                                <th class="small" scope="col">Monto Inicial</th>
+                                                <th class="small" scope="col">Monto Final</th>
+                                                <th class="small" scope="col">Comision</th>
+                                                <th class="small" scope="col">Monto Total <br>Calculado</th>
+                                                <th class="small" scope="col">Nro. Operaciones<br>sin Recargas Saldo</th>
+                                                <th class="small" scope="col">Monto Total Real</th>
+                                                <th class="small" scope="col">Captura</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          {% for row in list_cajas %}
+
+                                          <tr>
+                                            <td class="small"><input type="checkbox" class="form-check-input" id="exampleCheck1"><input id="cajaid" name="cajaid" type="hidden" value="{{row[0]}}"></td>
+                                            <td class="small">{{row[4]}}</td>
+                                            <td class="small">
+                                                {% if row[8] != 16 and row[8] != 17 and row[8]!=18 %}
+                                                    S./ {{row[1]}}
+                                                {% else %}
+                                                    ${{row[1]}}|S./{{row[7]}}
+                                                {% endif %}
+                                            </td>
+
+                                            <td class="small">
+                                                {% if row[8] != 16 and row[8] != 17 and row[8]!=18 %}
+                                                        S./ {{row[2]}}
+                                                {% else %}
+                                                        ${{row[2]}}|S./{{row[9]}}
+                                                {% endif %}
+                                                    <br>
+                                                {% if row[2]<500 and row[2]>0 %}
+                                                    <small class="text-danger"style="font-size: .7em;">Monto bajo</small>
+                                                {% endif %}
+                                            </td>
+                                            <td class="small">
+                                                {% if row[8] != 16 and row[8] != 17 and row[8]!=18 %}
+                                                    S./ {{row[5]}}
+                                                {% else %}
+                                                    ${{row[5]}}
+                                                {% endif %}
+                                            </td>
+                                            <td class="small">
+                                                {% if row[8] != 16 and row[8] != 17 and row[8]!=18 %}
+                                                    S./ {{row[6]}}
+                                                {% else %}
+                                                    ${{row[6]}}
+                                                {% endif %}
+                                            </td>
+                                            <td class="small">
+                                                {% if row[11]==None %}
+                                                    0
+                                                {% else %}
+                                                    {{row[11]}}
+                                                {% endif %}
+                                            </td>
+                                            <td class="small">
+                                                {% if fecha==fechaDeHoy %}
+
+                                                    {% if row[8] != 16 and row[8] != 17 and row[8]!=18 %}
+                                                    <div class="input-group">
+                                                            <span class="input-group-text">S./ </span>
+                                                            <input type="number"
+                                                                   class="form-control form-control-sm"
+                                                                   onkeypress="return isNumber(event)"
+                                                                   name="{{row[0]}}"
+                                                                   required="required"
+                                                                   value="{{row[3]}}"
+                                                                   placeholder="0.00"
+                                                                   min="0"
+                                                                   value="0"
+                                                                   step="0.01"
+                                                                   pattern="^\d+(?:\.\d{1,2})?$"
+                                                                   onblur="
+                                                            this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                            ">
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="input-group">
+                                                            <span class="input-group-text">$</span>
+                                                            <input type="number"
+                                                                   class="form-control form-control-sm"
+                                                                   onkeypress="return isNumber(event)"
+                                                                   name="{{row[0]}}"
+                                                                   required="required"
+                                                                   placeholder="0.00"
+                                                                   min="0"
+                                                                   value="{{row[3]}}"
+                                                                   step="0.01"
+                                                                   pattern="^\d+(?:\.\d{1,2})?$"
+                                                                   onblur="
+                                                                this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                            ">
+                                                    </div>
+                                                    <small class="text-primary" style="font-size: .7em;">Equivalen a S./ {{row[9]}}</small><br>
+                                                    {% endif %}
+
+                                                    {% if row[3]|round(1)==row[6]|round(1) %}
+                                                        <small class="text-primary" style="font-size: .65em;">Sin diferencias en el monto total.</small>
+                                                    {% else %}
+                                                        <small class="text-danger" style="font-size: .65em;">¡Hay diferencias en el monto total!</small>
+                                                    {% endif %}
+
+                                                {% else %}
+
+                                                    {{row[3]}}
+
+                                                {% endif %}
+                                            </td>
+                                            <td class="small">
+                                                {% if row[12]==None %}
+                                                    -
+                                                {% else %}
+                                                    <a href='{{row[12]}}' target="_blank"  class="btn btn-sm  btn-outline-secondary"><i class="fas fa-regular fa-image"></i></a>
+                                                {% endif %}
+                                            </td>
+                                          </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                        <tfoot class="tbody">
+                                            {% if not  list_cajas %}
+                                            <tr>
+
+                                            </tr>
+                                            {% else %}
+                                            <tr>
+                                                <td>-</td>
+                                                <td class="fw-bold fs-5 text-success small">TOTALES:</td>
+                                                <td class="fw-bold fs-5 text-success small">{{ suma_caja[0][0] }}</td>
+                                                <td class="fw-bold fs-5 text-success small">{{ suma_caja[0][1] }}</td>
+                                                <td class="fw-bold fs-5 text-success small">{{ suma_caja[0][3] }}</td>
+                                                <td class="fw-bold fs-5 text-success small">{{ suma_caja[0][4] }}</td>
+                                                <td class="fw-bold fs-5 text-success small"></td>
+                                                <td class="fw-bold fs-5 text-success small">{{ suma_caja[0][2] }}</td>
+                                                <td class="fw-bold fs-5 text-success small"></td>
+                                            </tr>
+                                            {% endif %}
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="col-lg-3 col-sm-12 pt-2">
+                                        {% if not  list_cajas %}
+
+                                        {% else %}
+                                           <label class="form-label small" >Ganancia:  </label><span class="fw-bold fs-5 text-success small">{{ suma_caja[2][0] }}</span> <br>
+                                           <!--<label class="form-label small" >Utilidad:  </label><span class="fw-bold fs-5 text-success small">{{ suma_caja[1][0] }}</span>-->
+                                        {% endif %}
+                                </div>
+
+                                <br>
+
+                                 <br>
+                                 {% if not  list_cajas %}
+                                    <span>No se tiene Caja Aperturada para la fecha seleccionada.</span>
+                                 {% else %}
+                                    {% if fecha==fechaDeHoy %}
+                                        <button type="submit" class="btn btn-lg btn-primary w-100" name="accion_btn" value="actualizar">Cerrar Caja</button>
+                                    {% endif %}
+                                 {% endif %}
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </form>
+<!-- Form End -->
+
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                </button>
+            </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

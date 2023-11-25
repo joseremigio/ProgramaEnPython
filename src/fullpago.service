@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve agentefullpago
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/agentefullpago/src
+Environment="PATH=/usr/bin"
+ExecStart=/root/agentefullpago/agentefullpagoenv/bin/gunicorn --access-logfile - --workers 3 --bind unix:fullpago.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target

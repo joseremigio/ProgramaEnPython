@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<!-- Form Start -->
+<!--
+<div id="div_iframe" name="div_iframe" style="overflow: hidden; margin: 15px auto; max-width: 900px;  max-height:75px">
+    <iframe  id="iframe" name="iframe" src="https://cuantoestaeldolar.pe/" width="100%" height="100%" align="center"></iframe>
+</div>
+-->
+
+ <form id="formRegistarRemesa" action="{{url_for('registraRemesa')}}" method="POST">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Registrar Remesa de Portal WU
+                                <img class="rounded mx-auto float-end" src="/static/img/wester.png" alt="" style="width: 20%;">
+                            </h6>
+                            <form>
+                                 <div class="mb-3">
+                                     <div class="col-lg-6 col-sm-6">
+                                        <label class="form-label small" for="startDate">Fecha:</label>
+                                        <input id="fecha" name="fecha"  class="form-control small" type="date" value="{{fecha}}" required="required"/>
+                                    </div>
+                                 </div>
+                                <div class="mb-3">
+                                    <label  class="form-label">Soles:</label>
+                                    <div class="row">
+                                         <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text">Pagado:</span>
+                                                <input type="number" class="form-control" id="monto_salida_sol" name="monto_salida_sol" value="" step=".001" required>
+                                            </div>
+                                         </div>
+                                        <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text">Enviado:</span>
+                                                <input type="number" class="form-control" id="monto_entrada_sol" name="monto_entrada_sol" value="" step=".001" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label  class="form-label">Dolares:</label>
+                                    <div class="row">
+                                         <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text">Pagado:</span>
+                                                <input type="number" class="form-control" id="monto_salida_dolar" name="monto_salida_dolar" value="" step=".001" required>
+                                            </div>
+                                         </div>
+                                        <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text">Enviado:</span>
+                                                <input type="number" class="form-control" id="monto_entrada_dolar" name="monto_entrada_dolar" value="" step=".001" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-lg btn-primary w-100">Registrar</button>
+                                <br>
+                            </form>
+
+                             {% with messages = get_flashed_messages(category_filter=["success"])  %}
+                                  {% if messages %}
+                                      {% for message in messages %}
+
+                                      <br>
+                                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                           <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      </div>
+                                      {% endfor %}
+                                  {% endif %}
+                            {% endwith %}
+
+                            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                            {% if errors %}
+                                 {% for message in errors %}
+                                    <br>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                       <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                                       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                 {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+      </form>
+            <!-- Form End -->
+
+{% endblock %}
+
+

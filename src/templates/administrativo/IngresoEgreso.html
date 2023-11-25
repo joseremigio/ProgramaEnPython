@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                    <form id="formIngresoEgreso" name="formIngresoEgreso" action="{{url_for('ingresosEgresos')}}" method="POST">
+                        <div class="bg-light rounded h-100 p-4">
+                             <div class="col-sm-12 col-xl-12">
+                                 <h6 class="mb-4">Registrar de Comisiones (Ingreso de Efectivo)</h6>
+                             </div>
+                             <div class="row mb-2">
+                                 <div class="col-md-6 col-sm-12">
+                                     <label class="form-label">Banco</label>
+                                     <select class="form-select" aria-label="multiple select example" name="BancoId" id="BancoId" required="required">
+                                         <option class="small " value="13">AGENTE - KASNET - Transferencia BCP</option>
+                                         <option class="small " value="3">AGENTE - BANCO DE LA NACION</option>
+                                         <option class="small " value="13">AGENTE - WESTER UNION - PAGO DE SERVICIO - Transferencia BCP</option>
+                                         <option class="small " value="13">AGENTE - BBVA - Transferencia BCP</option>
+                                         <option class="small " value="26">WESTER UNION (SOLES) - Transferencia BCP</option>
+                                         <option class="small " value="27">WESTER UNION (DOLARES) - Transferencia BCP</option>
+                                     </select>
+                                 </div>
+                                 <div class="col-md-2 col-sm-12">
+                                       <label class="form-label">Comisión</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)"  name="comision" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                 </div>
+                                 <div class="col-md-2 col-sm-12">
+                                       <label class="form-label">Mes</label>
+                                       <input type="hidden" class="form-control" id="comentario" name="comentario" style="font-size: small;">
+                                       <select class="form-select" aria-label="multiple select example" name="Mes" id="Mes" required="required">
+                                            {% for item in list_meses %}
+                                                <option class="small" value="{{item[4]}}" {% if mesSelectedId| int==item[3]| int %} selected {% endif %}>{{item[4]}}</option>
+                                            {% endfor %}
+                                       </select>
+                                 </div>
+                                 <div class="col-md-2 col-sm-12">
+                                     <label class="form-label"></label>
+                                     <button type="submit" class="btn btn-lg btn-primary w-100" name="accion_btn" value="ingreso">Guardar</button>
+                                 </div>
+                            </div>
+                            <div class="col-sm-12 col-xl-12 pt-3">
+
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="{{url_for('ingresosEgresos')}}" method="POST">
+
+                        <div class="bg-light rounded h-100 p-4">
+
+                             <div class="col-sm-12 col-xl-12">
+                                 <h6 class="mb-4">Registrar Gastos (Salida de Efectivo)</h6>
+                             </div>
+                             <div class="row mb-2">
+                                  <div class="col-md-3 col-sm-12">
+                                     <label class="form-label">Origen</label>
+                                     <select class="form-select" aria-label="multiple select example" name="Origen" id="Origen" required="required">
+                                         <option class="small " value="1">AGENTE (SOLES)</option>
+                                         <option class="small " value="2">WESTER UNION (SOLES)</option>
+                                     </select>
+                                  </div>
+
+                                  <div class="col-md-3 col-sm-6">
+                                       <label class="form-label">Monto en Efectivo Caja en  S./</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)" id="monto" name="monto" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                  </div>
+                                  <div class="col-md-4 col-sm-12">
+                                       <label class="form-label">Descripción</label>
+                                       <input type="text" class="form-control" name="comentario">
+                                  </div>
+
+                                  <div class="col-md-2 col-sm-12">
+                                     <label class="form-label"></label>
+                                     <button type="submit" class="btn btn-lg btn-primary w-100" name="accion_btn" value="egreso">Guardar</button>
+                                  </div>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                   <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+              <br>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                   <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Form Start -->
+ <form action="{{url_for('apertura')}}" method="POST" onsubmit="return alertaAperturaCaja();">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Apertura de Caja - <span class="font-weight-bold">WESTER UNION</span>
+                                <img class="rounded mx-auto float-end" src="/static/img/wester.png" alt="" style="width: 15%;">
+                            </h6>
+                                 <div class="table-responsive row justify-content-center mb-4">
+                                     <div class="col-lg-3 col-sm-12">
+                                          <label class="form-label">Fecha de Apertura</label>
+                                     </div>
+                                     <div class="col-lg-3 col-sm-12">
+                                        <input id="fecha" name="fecha" class="form-control" type="date" value="{{fecha}}" required="required"/>
+                                    </div>
+                                     <div class="col-lg-3 col-sm-6">
+                                         <button type="submit" class="btn btn-lg btn-primary" name="accion_btn" value="buscar">
+                                             <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#f9fafb}</style><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                                              Buscar
+                                         </button>
+                                     </div>
+                                 </div>
+                                 <div class="table-responsive">
+                                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                        <thead>
+                                            <tr class="text-dark">
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Banco</th>
+                                                <th scope="col">Monto Inicial</th>
+                                            </tr>
+                                        </thead>
+                                        {% if not  list_cajas %}
+                                            <tbody>
+                                              {% for row in list_banco %}
+                                              <tr>
+                                                <td>{{row[0]}}</td>
+                                                <td>{{row[1]}}</td>
+                                                <td>
+                                                    <div class="input-group mb-3">
+                                                        {% if "DOL" in row[1]%}
+                                                            <span class="input-group-text"> $ </span>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                   onkeypress="return isNumber(event)"
+                                                                   name="{{row[0]}}"
+                                                                   placeholder="0.00"
+                                                                   required
+                                                                   min="0"
+
+                                                                   {% if "WESTER" in row[1]%}
+                                                                     readonly
+                                                                   {% endif %}
+
+                                                                   value="{{row[2]}}"
+                                                                   step="0.01"
+                                                                   pattern="^\d+(?:\.\d{1,2})?$"
+                                                                   onblur="this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                            ">
+                                                        {% else %}
+                                                            <span class="input-group-text">S./</span>
+                                                            <input type="number"
+                                                                   class="form-control form-control-sm"
+                                                                   onkeypress="return isNumber(event)"
+                                                                   name="{{row[0]}}"
+                                                                   placeholder="0.00"
+                                                                   required
+                                                                   min="0"
+
+                                                                   {% if "WESTER" in row[1]%}
+                                                                     readonly
+                                                                   {% endif %}
+
+                                                                   value="{{row[2]}}"
+                                                                   step="0.01"
+                                                                   pattern="^\d+(?:\.\d{1,2})?$"
+                                                                   onblur="this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                            ">
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                              </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                        {% else %}
+                                            <tbody>
+                                              {% for row in list_cajas %}
+                                              <tr>
+                                                <td>{{row[0]}}<input id="cajaid" name="cajaid" type="hidden" value="{{row[0]}}"></td>
+                                                <td>{{row[4]}}</td>
+                                                <td>
+                                                    {{row[1]}}
+                                                </td>
+                                              </tr>
+                                              {% endfor %}
+                                            </tbody>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                                <br>
+                                {% if not  list_cajas %}
+                                    <button type="submit" class="btn btn-lg btn-primary w-100" name="accion_btn" value="registrar">Registrar</button>
+                                {% else %}
+                                    {% if fecha==fechaDeHoy %}
+                                        <button type="submit" class="btn btn-lg btn-danger w-100" name="accion_btn" value="eliminar">Eliminar</button>
+                                    {% endif %}
+                                {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </form>
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                   <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+             <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                 <i class="fa fa-exclamation-circle me-2"></i>{{ message }}
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

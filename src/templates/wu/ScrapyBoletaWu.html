@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <form id="scrapyBoletaWuForm" action="/boletaWu" method="POST">
+            <!-- Sign In Start -->
+            <div class="container-fluid">
+                <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-12 col-xl-12">
+                        <div class="bg-light rounded pt-4 p-sm-5">
+                            <div class="d-flex align-items-center justify-content-between mb-3">
+                                <a type="button" href="/home" class="btn btn-outline-primary py-3 w-100 mb-4">Regresar a Agente<i class="fa fa-home ms-2"></i></a>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Boleta WU</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="url" id="url" value="http://192.168.1.40:8000/ejemplo" class="form-control"  placeholder="URL">
+                                <label for="floatingInput">URL:</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" name="montoRecibido" id="montoRecibido" class="form-control"  placeholder="MON. REC">
+                                <label for="floatingInput">MON. REC</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" name="tipoMoneda" id="tipoMoneda" value="Sol" class="form-control"  placeholder="TIPO MONEDA">
+                                <label for="floatingInput">TIPO MONEDA</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div class="form-floating mb-4">
+                                <input type="text" name="importeTotal" id="importeTotal" class="form-control"  placeholder="IMP TOT">
+                                <label for="floatingInput">IMP TOT</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" name="montoPagado" id="montoPagado" class="form-control"  placeholder="MON PAG">
+                                <label for="floatingInput">MON PAG</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="text" name="tipoCambio" id="tipoCambio" class="form-control"  placeholder="TASA CAMBIO">
+                                <label for="floatingInput">TASA CAMBIO</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-6 col-xl-6">
+                        <button type="submit" target="_blank" class="btn btn-primary py-3 w-100 mb-4">Ejecutar</button>
+                            <!--<p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>-->
+
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                            <br />
+                            {% for message in messages %}
+                            <div class="alert alert-primary alert-dismissible" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            {% endwith %}
+                    </div>
+                </div>
+            </div>
+            <!-- Sign In End -->
+        </form>
+
+  <script>
+        <!--document.getElementById('scrapyBoletaWuForm').onsubmit = function() {
+            abrirNuevaPestana();
+        };
+
+        function abrirNuevaPestana() {
+            // Abre una nueva pestaña o ventana con la URL especificada después de enviar el formulario.
+            window.open('/boletaWu', '_blank');
+        }-->
+    </script>
+
+{% endblock %}
+

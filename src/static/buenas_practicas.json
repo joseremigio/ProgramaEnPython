@@ -1,0 +1,30 @@
+[
+  {
+    "titulo": "Tip #1",
+    "descripcion": "Tip #1: Siempre se contar 2 veces los billetes."
+  },
+  {
+    "titulo": "Tip #2",
+    "descripcion": "Tip #2: Revisar el vaucher si es un DEPOSITO o RETIRO."
+  },
+  {
+    "titulo": "Tip #3",
+    "descripcion": "Tip #3: Cuando realices un pago de servicio, que le cliente confirme el nombre del titular antes de concretar el pago."
+  },
+  {
+    "titulo": "Tip #4",
+    "descripcion": "Tip #4: Confirmar con el cliente el nro de las cuentas de los DEPOSITOS."
+  },
+  {
+    "titulo": "Tip #5",
+    "descripcion": "Tip #5: Confirmar con el cliente el nombre que sea el correcto cuando hagamos pagos de servicios o pago de prestamos."
+  },
+  {
+    "titulo": "Tip #6",
+    "descripcion": "Tip #6: En caso de ocurrir un error en los depositos del POS de izypay verificar en la opcion de ultimas transacciones del mismo POS si se registro la operacion."
+  },
+  {
+    "titulo": "Tip #7",
+    "descripcion": "Tip #7: Cuando realicemos depositos con el app de BCP pedir siempre el nro celular del cliente en caso tengamos inconveniente con la transaccion."
+  }
+]

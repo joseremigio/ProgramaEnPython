@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Form Start -->
+ <form  name="transferirWuForm" id="transferirWuForm" action="{{url_for('transferirWu')}}" method="POST">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+
+                    <div class="bg-light rounded h-100 p-4">
+
+                        <div class="col-sm-12 col-xl-12">
+                             <h6 class="mb-4">Registrar Transferencia <img class="rounded mx-auto float-end" src="/static/img/wester.png" alt="" style="width: 10%;"></h6>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col">
+                              <label  class="form-label">Banco Origen</label>
+                              <select class="form-select" multiple  size="3" aria-label="multiple select example" name="BancoOrigenId" id="BancoOrigenId" required="required">
+                                             {% for row in list_banco_origen %}
+                                                 <option class="small" value="{{row[0]}}">{{row[1]}}</option>
+                                             {% endfor %}
+                              </select>
+                          </div>
+                          <div class="col">
+                            <label  class="form-label">Banco Destino</label>
+                              <select class="form-select" multiple  size="3" aria-label="multiple select example" name="BancoDestinoId" id="BancoDestinoId" required="required" >
+                                             {% for row in list_banco_destino %}
+                                                 <option class="small" value="{{row[0]}}">{{row[1]}}</option>
+                                             {% endfor %}
+                              </select>
+                          </div>
+                        </div>
+                        <div class="row mb-2">
+                          <div class="col">
+                                        <label  class="form-label">Monto</label>
+
+                                         <div class="input-group">
+                                           <!-- <span class="input-group-text">S./ </span>-->
+                                            <input type="number" class="form-control" onchange="calcularVuelto()" onkeypress="return isNumber(event)" id="monto" name="monto" required="required" placeholder="0.00"  value="0" min="0"  step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                            this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                            ">
+                                        </div>
+                          </div>
+
+                          <div class="col">
+                               <label class="form-label">Descripción</label>
+                               <input type="text" class="form-control" name="comentario" value="RECARGA SALDO" readonly>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-12 col-xl-12 pt-3">
+                           <button type="submit" id="btnRegistra" name="btnRegistra" class="btn btn-lg btn-primary w-100">Registrar</button>
+                        </div>
+                    </div>
+            </div>
+      </form>
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                </button>
+            </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

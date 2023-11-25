@@ -1,0 +1,84 @@
+2023-11-24 01:50:29,941 - INFO -  * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.40:8000 (Press CTRL+C to quit)
+2023-11-24 01:50:33,204 - INFO - Inicio de index
+2023-11-24 01:50:33,204 - INFO - Fin de index
+2023-11-24 01:50:33,219 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[32mGET / HTTP/1.1[0m" 302 -
+2023-11-24 01:50:33,226 - INFO - Inicio de login
+2023-11-24 01:50:33,267 - INFO - ---------------------Inicio de listarCaja---------------------
+2023-11-24 01:50:33,314 - INFO - Fin de listarCaja
+2023-11-24 01:50:33,314 - INFO - Inicio de load_user
+2023-11-24 01:50:33,346 - INFO - Fin de load_user
+2023-11-24 01:50:33,440 - INFO - Fin de login
+2023-11-24 01:50:33,440 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "GET /login HTTP/1.1" 200 -
+2023-11-24 01:50:33,555 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/lib/owlcarousel/assets/owl.carousel.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:33,803 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:33,803 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/css/bootstrap.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:33,803 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:33,820 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/lib/chart/chart.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:33,826 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[33mGET /static/easing/easing.min.js HTTP/1.1[0m" 404 -
+2023-11-24 01:50:33,863 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:33] "[36mGET /static/lib/waypoints/waypoints.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,110 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/lib/owlcarousel/owl.carousel.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,127 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/lib/tempusdominus/js/moment.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,133 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/lib/tempusdominus/js/moment-timezone.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,138 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,157 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,171 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "[36mGET /static/js/agencia.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:34,496 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:34] "GET /get_textos HTTP/1.1" 200 -
+2023-11-24 01:50:36,844 - INFO - Inicio de login
+2023-11-24 01:50:36,890 - INFO - ---------------------Inicio de listarCaja---------------------
+2023-11-24 01:50:36,938 - INFO - Fin de listarCaja
+2023-11-24 01:50:37,072 - INFO - ---------------------Inicio de asignacionCaja---------------------
+2023-11-24 01:50:37,123 - INFO - Fin de asignacionCaja
+2023-11-24 01:50:37,123 - INFO - ---------------------Inicio de registrar---------------------
+2023-11-24 01:50:37,271 - INFO - ---------------------Fin de registrar------------------------
+2023-11-24 01:50:37,271 - INFO - Fin de login
+2023-11-24 01:50:37,276 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:37] "[32mPOST /login HTTP/1.1[0m" 302 -
+2023-11-24 01:50:37,276 - INFO - Inicio de load_user
+2023-11-24 01:50:37,324 - INFO - Fin de load_user
+2023-11-24 01:50:37,325 - INFO - Inicio de home
+2023-11-24 01:50:37,383 - INFO - Fin de home
+2023-11-24 01:50:37,623 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:37] "GET /home HTTP/1.1" 200 -
+2023-11-24 01:50:37,978 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:37] "[36mGET /static/lib/owlcarousel/assets/owl.carousel.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:37,984 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:37] "[36mGET /static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:37,989 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:37] "[36mGET /static/css/bootstrap.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,003 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,004 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/img/logo.wu.big.svg HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,004 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/img/jose.png HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,296 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/chart/chart.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,305 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[33mGET /static/easing/easing.min.js HTTP/1.1[0m" 404 -
+2023-11-24 01:50:38,305 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/waypoints/waypoints.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,305 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/owlcarousel/owl.carousel.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,324 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/tempusdominus/js/moment.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,332 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/tempusdominus/js/moment-timezone.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,606 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,620 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,627 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/js/agencia.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,635 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "[36mGET /static/js/excelexportjs.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:38,941 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:38] "GET /get_textos HTTP/1.1" 200 -
+2023-11-24 01:50:47,817 - INFO - Inicio de load_user
+2023-11-24 01:50:47,855 - INFO - Fin de load_user
+2023-11-24 01:50:47,855 - INFO - ---------------------Inicio de execute_query---------------------
+2023-11-24 01:50:47,906 - INFO - ---------------------Fin de execute_query---------------------
+2023-11-24 01:50:47,906 - INFO - ---------------------Inicio de execute_query---------------------
+2023-11-24 01:50:47,955 - INFO - ---------------------Fin de execute_query---------------------
+2023-11-24 01:50:48,020 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "GET /listaRemesa HTTP/1.1" 200 -
+2023-11-24 01:50:48,126 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/owlcarousel/assets/owl.carousel.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,360 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,363 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/css/bootstrap.min.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,368 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/img/jose.png HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,368 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,368 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/img/logo.wu.big.svg HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,438 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/img/wester.png HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,672 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[33mGET /static/easing/easing.min.js HTTP/1.1[0m" 404 -
+2023-11-24 01:50:48,672 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/chart/chart.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,692 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/waypoints/waypoints.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,704 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/owlcarousel/owl.carousel.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,706 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/tempusdominus/js/moment.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:48,753 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:48] "[36mGET /static/lib/tempusdominus/js/moment-timezone.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:49,004 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:49] "[36mGET /static/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:49,020 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:49] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:49,034 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:49] "[36mGET /static/js/agencia.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:49,039 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:49] "[36mGET /static/js/excelexportjs.js HTTP/1.1[0m" 304 -
+2023-11-24 01:50:49,362 - INFO - 127.0.0.1 - - [24/Nov/2023 01:50:49] "GET /get_textos HTTP/1.1" 200 -

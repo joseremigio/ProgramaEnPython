@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- Form Start -->
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4">
+                    <div class="col-sm-6 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Mi Perfil</h6>
+                            <form action="{{url_for('profile')}}" method="POST">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="usuario" name="usuario"  value="{{session['usuario']}}" readonly>
+                                    <label for="floatingText">Usuario</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{nombre}}" required>
+                                    <label for="floatingInput">Nombre</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="password" class="form-control" id="contrasena" name="contrasena" required>
+                                    <label for="floatingPassword">Contraseña</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Editar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form End -->
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                </button>
+            </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<!-- Form Start -->
+
+ <form id="formCargarImagen" action="{{url_for('cargarImagen')}}" method="POST" enctype="multipart/form-data">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-sm-12 col-md-8">
+                        <div class="bg-light rounded h-100 p-4">
+
+                                <div class="table-responsive row justify-content-center mb-4">
+                                     <div class="col-lg-9 col-sm-12">
+                                        <h6 class="mb-4">Captura de Cajas: </h6>
+                                     </div>
+                                     <div class="col-lg-3 col-sm-12">
+                                        <a href="/cajaCierre"  class="btn btn-lg  btn-primary"> <i class="fas fa-solid fa-arrow-left"></i> Regresar</a>
+                                     </div>
+                                     <br>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table text-start align-middle table-bordered table-hover mb-0" style="font-size: .8em;">
+                                        <thead>
+                                            <tr class="text-dark">
+                                                <th class="small" scope="col">Banco</th>
+                                                <th class="small" scope="col">Captura</th>
+                                                <th class="small" scope="col">-</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            {% for row in list_cajas %}
+                                                {% if not "EFECTIVO" in row[4] and not "OTROS" in row[4] %}
+                                                 <tr>
+
+                                                    <td class="small">{{row[4]}}</td>
+                                                    <td class="small">
+                                                        <input class="form-control form-control-sm" name="{{row[0]}}|{{row[4]}}"  type="file" id="captura" accept=".png, .jpg, .jpeg">
+                                                    </td>
+                                                     <td class="small">
+                                                        {% if row[12]==None %}
+                                                            -
+                                                        {% else %}
+                                                            <a href='{{row[12]}}' target="_blank"  class="btn btn-sm  btn-outline-secondary"><i class="fas fa-regular fa-image"></i></a>
+                                                        {% endif %}
+                                                     </td>
+                                                 </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-lg btn-primary w-100" >Guardar</button>
+                                <br>
+
+
+                             {% with messages = get_flashed_messages(category_filter=["success"])  %}
+                                  {% if messages %}
+                                      {% for message in messages %}
+                                      <br>
+                                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                      {% endfor %}
+                                  {% endif %}
+                            {% endwith %}
+
+                            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                            {% if errors %}
+                                 {% for message in errors %}
+                                    <br>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                 {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </form>
+      <!-- Form End -->
+
+<script>
+    document.getElementById("captura").addEventListener("change", function () {
+      var archivo = this.files[0];
+      if (archivo) {
+        var extensionPermitida = [".png", ".jpg", ".jpeg"]; // Lista de extensiones permitidas
+        var extensionArchivo = archivo.name.substring(archivo.name.lastIndexOf(".")).toLowerCase();
+
+        if (extensionPermitida.indexOf(extensionArchivo) === -1) {
+          alert("Tipo de archivo no permitido. Por favor, seleccione un archivo con una de las siguientes extensiones: " + extensionPermitida.join(", "));
+          this.value = ""; // Limpia el campo de entrada para que el usuario pueda seleccionar un archivo válido
+        }
+      }
+    });
+
+</script>
+{% endblock %}
+
+

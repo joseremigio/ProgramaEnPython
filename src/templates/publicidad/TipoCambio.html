@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Full Pagos</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css')}}" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+
+    <style>
+    /*
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container img {
+      max-width: 100%;
+      max-height: 100%;
+    }*/
+
+
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      margin-top: 12rem;
+    }
+
+  </style>
+  <script>
+    setTimeout(function() {
+      location.reload(); // Recargar la página después de 10 minutos
+    }, 600000); // 600000 ms = 10 minutos
+
+  </script>
+
+</head>
+
+<body class="fondo-tipo-cambio">
+
+<div class="container">
+    <div class="row pt-3 pt-5">
+      <div class="col-2"><button onclick="launchFullScreen(document.documentElement);" class="button-tipo-cambio small">Entrar en pantalla completa </button></div>
+      <div class="col-8 mt-5 pt-5"><h1 class="font-weight-bold text-center cabecera-tipo-cambio">Tipo de cambio del dólar:</h1></div>
+      <div class="col-2"><button onclick="cancelFullScreen();" class="button-tipo-cambio small"> Salir de pantalla completa</button></div>
+    </div>
+    <div class="row pt-5">
+      <div class="col-2"></div>
+      <div class="col-4"><h2 class="cuerpo-tipo-cambio resaltado">Compra:</h2></div>
+      <div class="col-4"><h2 class="text-center cuerpo-tipo-cambio resaltar-tipo-cambio">S./ {{valor_compra}}</h2></div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row pt-4">
+      <div class="col-2"></div>
+      <div class="col-4"><h2 class="cuerpo-tipo-cambio resaltado">Venta:</h2> </div>
+      <div class="col-4"><h2 class="text-center cuerpo-tipo-cambio resaltar-tipo-cambio">S./ {{valor_venta}}</h2></div>
+      <div class="col-2"></div>
+    </div>
+    <div class="row pt-4">
+        <div class="col offset-md-4"><img src="{{ url_for('static', filename='img/kasaseguro.com2.png') }}" alt="Imagen" style="
+    width: 50%"></div>
+    </div>
+</div>
+
+<!--<div class="container">  <div class="col-1"><img src="{{ url_for('static', filename='img/logo2-light.png') }}" alt="Imagen"></div>
+<button onclick="launchFullScreen(document.documentElement);">Entrar en pantalla completa </button>
+<button onclick="cancelFullScreen();"> Salir de pantalla completa </button>
+  <img src="{{ url_for('static', filename='img/venta_dolar.png') }}" alt="Imagen">
+  <div class="overlay">
+    <h1>S./ {{valor_venta}}</h1>
+  </div>
+</div>-->
+
+
+
+<!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/chart/chart.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='easing/easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+
+    <script src="{{ url_for('static', filename='js/agencia.js')}}"></script>
+
+</body>
+
+</html>

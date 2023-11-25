@@ -1,0 +1,165 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+            <div class="container-fluid pt-4" style="padding-left:0px">
+
+                    <form action="{{url_for('nuevaOperacionWuSol')}}" method="POST">
+                        <div class="bg-light rounded h-100 p-4">
+
+                             <div class="col-sm-12 col-xl-12">
+                                 <h6 class="mb-4">Registrar Operación S./ - WU <img class="rounded mx-auto float-end" src="/static/img/wester.png" alt="" style="width: 10%;"></h6>
+                             </div>
+
+                             <div class="row mb-2">
+                                  <div class="col-md-3 col-sm-12">
+                                    <label class="form-label">Tipo de Operación</label>
+                                    <select class="form-select"  name="tipoOperacionIdSol" id="tipoOperacionIdSol" required="required">
+                                                 {% for item in list_tipooperaciones %}
+                                                      <option class="small" value="{{item[0]}}">{{item[1]}}</option>
+                                                 {% endfor %}
+                                    </select>
+                                  </div>
+
+                                 <div class="col-md-3 col-sm-12">
+                                       <label class="form-label">Monto en WU en S./</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)" id="montoSolWu" name="montoSolWu" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                 </div>
+
+                                 <div class="col-md-3 col-sm-12">
+                                       <label class="form-label">Comisión en S./</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)"  name="montoSolCaja" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                 </div>
+                                 <div class="col-md-3 col-sm-12">
+                                       <label class="form-label">Descripción</label>
+                                       <input type="text" class="form-control" name="comentario">
+                                 </div>
+
+                                 <div class="col-md-3 col-sm-6 pt-1">
+
+                                 </div>
+                                 <div class="col-md-3 col-sm-6 pt-1">
+                                      <input type="checkbox" class="form-check-input"  name="bcpSol">
+                                      <label class="form-check-label" for="exampleCheck2">Transferencia BCP S./</label>
+                                 </div>
+
+                            </div>
+                            <div class="col-sm-12 col-xl-12 pt-3">
+                               <button type="submit" class="btn btn-lg btn-primary w-100">Registrar Operacion S./</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="{{url_for('nuevaOperacionWuDolar')}}" method="POST">
+
+                        <div class="bg-light rounded h-100 p-4">
+
+                             <div class="col-sm-12 col-xl-12">
+                                 <h6 class="mb-4">Registrar Operación $ - WU</h6>
+                             </div>
+                             <div class="row mb-2">
+                                  <div class="col-md-3 col-sm-12">
+                                    <label class="form-label">Tipo de Operación</label>
+                                    <select class="form-select"  name="tipoOperacionIdDolar" id="tipoOperacionIdDolar" required="required">
+                                                 {% for item in list_tipooperaciones %}
+                                                      <option class="small" value="{{item[0]}}">{{item[1]}}</option>
+                                                 {% endfor %}
+                                    </select>
+                                  </div>
+                                  <div class="col-md-3 col-sm-12">
+                                      <label class="form-label">Monto en WU en $</label>
+                                       <input type="number" onchange="calcularMontoDiferenciaEnSoles()" class="form-control" onkeypress="return isNumber(event)" id="montoDolarWu" name="montoDolarWu" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                 </div>
+                                 <div class="col-md-3 col-sm-12">
+                                      <label class="form-label">Comisión en S./</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)" id="comisionSol" name="comisionSol" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                 </div>
+                                 <div class="col-md-3 col-sm-12">
+                                       <label class="form-label">Descripción</label>
+                                       <input type="text" class="form-control" name="comentario">
+                                 </div>
+                            </div>
+
+                            <div class="row mb-2" id="remesaDolarRetiro">
+                                  <div class="col-md-3 col-sm-6">
+                                      <label class="form-check-label">Monto en Efectivo Caja en $</label>
+                                      <input type="number" onchange="calcularMontoDiferenciaEnSoles()" class="form-control" onkeypress="return isNumber(event)" id="montoDolarCaja" name="montoDolarCaja" required="required" placeholder="Ingresar Monto"  value="0" min="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                  </div>
+                                  <div class="col-md-3 col-sm-6">
+                                       <label class="form-check-label">Monto en Efectivo Caja en  S./</label>
+                                       <input type="number" class="form-control" onkeypress="return isNumber(event)" id="montoSolCaja" name="montoSolCaja" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        " readonly>
+                                  </div>
+                                  <div class="col-md-3 col-sm-6">
+                                      <label class="form-check-label">Tipo de Cambio - Compra</label>
+                                      <input type="number" onchange="calcularMontoDiferenciaEnSoles()" class="form-control" onkeypress="return isNumber(event)" id="tipoCambioCompra" name="tipoCambioCompra" required="required" placeholder="0.00"  min="0"  step="0.001" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        " value="{{valor_compra}}">
+                                  </div>
+                                  <div class="col-md-3 col-sm-6">
+                                      <label class="form-check-label">Tipo de Cambio - Venta</label>
+                                      <input type="number" onchange="calcularMontoDiferenciaEnSoles()" class="form-control" onkeypress="return isNumber(event)" id="tipoCambioVenta" name="tipoCambioVenta" required="required" placeholder="0.00"  min="0"  step="0.001" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        " value="{{valor_venta}}">
+                                  </div>
+
+                                  <div class="col-md-3 col-sm-6 pt-1">
+                                      <input type="checkbox" class="form-check-input" id="bcpDolar" name="bcpDolar">
+                                      <label class="form-check-label" for="exampleCheck1">Transferencia BCP $</label>
+                                  </div>
+                                  <div class="col-md-3 col-sm-6 pt-1">
+                                      <input type="checkbox" class="form-check-input" id="bcpSol" name="bcpSol">
+                                      <label class="form-check-label" for="exampleCheck2">Transferencia BCP S./</label>
+                                  </div>
+
+                            </div>
+
+
+                            <div class="col-sm-12 col-xl-12 pt-3">
+                               <button type="submit" class="btn btn-lg btn-primary w-100">Registrar Operacion $</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                </button>
+            </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+{% endblock %}

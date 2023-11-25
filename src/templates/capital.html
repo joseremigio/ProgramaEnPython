@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<!-- Form Start -->
+
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Capital</h6>
+
+                                 <div class="table-responsive">
+                                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                        <thead>
+                                            <tr class="text-dark">
+                                                <th scope="col">Tipo</th>
+                                                <th scope="col">Monto</th>
+                                                <th scope="col">Utilidad</th>
+                                                <th scope="col">Comentario</th>
+                                                <th scope="col">Acción</th>
+                                            </tr>
+                                        </thead>
+                                        {% if not  list_capital %}
+                                            <tbody>
+                                              <tr>
+                                                <td>
+                                                    <input type="number" class="form-control" onchange="calcularVuelto()" onkeypress="return isNumber(event)" name="monto" required="required" placeholder="0.00"  value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                    this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                    ">
+                                                </td> -
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control"  name="comentario" required="required">
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                        {% else %}
+                                            <tbody>
+                                              {% for row in list_capital %}
+                                              <form action="{{url_for('add_capital')}}" method="POST">
+                                                  <tr>
+                                                    <td>{{row[5]}}</td>
+                                                    <td><input type="number" class="form-control" onchange="calcularVuelto()" onkeypress="return isNumber(event)" name="monto" required="required" placeholder="0.00"  value="{{row[1]}}" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                                        this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                        ">
+                                                        <input id="capitalid" name="capitalid" type="hidden" value="{{row[0]}}"></td>
+                                                    <td>{{row[3]}}</td>
+                                                    <td><input class="form-control"  name="comentario" required="required" value="{{row[4]}}"></td>
+                                                    <td><button type="submit" class="btn btn-sm btn-primary w-100" name="accion_btn" value="actualizar">Actualizar</button></td>
+                                                  </tr>
+                                              </form>
+                                              {% endfor %}
+                                            </tbody>
+                                        {% endif %}
+                                    </table>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form End -->
+
+    {% with messages = get_flashed_messages(category_filter=["success"])  %}
+          {% if messages %}
+              {% for message in messages %}
+              <br>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              {% endfor %}
+          {% endif %}
+    {% endwith %}
+
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+         {% for message in errors %}
+            <br>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                </button>
+            </div>
+         {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+{% endblock %}

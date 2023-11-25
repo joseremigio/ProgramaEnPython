@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+
+<!-- Form Start -->
+<!--
+<div id="div_iframe" name="div_iframe" style="overflow: hidden; margin: 15px auto; max-width: 900px;  max-height:75px">
+    <iframe  id="iframe" name="iframe" src="https://cuantoestaeldolar.pe/" width="100%" height="100%" align="center"></iframe>
+</div>
+-->
+
+ <form id="formRegistarCompraVentaDolar" action="{{url_for('compraventadolarWu')}}" method="POST">
+            <div class="container-fluid pt-4" style="padding-left:0px">
+                <div class="row g-4 justify-content-center">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Registrar Compra/Venta de $ en WU
+                                <img class="rounded mx-auto float-end" src="/static/img/wester.png" alt="" style="width: 20%;">
+                            </h6>
+                            <form>
+                                <div class="mb-3">
+                                    <label  class="form-label">Tipo de Cambio</label>
+                                    <div class="row">
+                                         <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon1">Compra:</span>
+                                                <input type="number" class="form-control" id="valor_compra" name="valor_compra" value="{{valor_compra}}" step=".001" required>
+                                            </div>
+                                         </div>
+                                        <div class="col-sm-6 col-md-6">
+                                             <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon12">Venta:</span>
+                                                <input type="number" class="form-control" id="valor_venta" name="valor_venta" value="{{valor_venta}}" step=".001" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-1">
+                                    <div class="col-sm-6 col-md-6 pr-md-6">
+                                        <input type="text" id="enviar" name="enviar" class="form-control rounded-top size-tipo-cambio" placeholder="Voy a enviar." onkeypress="return isNumberKey(event)" value="100" required>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 pr-md-6 bg-secondary text-white rounded-top">
+                                        <div class="d-flex justify-content-center">
+                                            <p class="text-center  font-italic mb-0" style="padding: 0.5rem 1rem;"><span id="tipoMonedaEnviar" name="tipoMonedaEnviar" value ="--" >Soles</span> a enviar (Ingresa)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-1">
+                                    <div class="col-md-12 pr-md-12">
+                                        <button id="cambio" name="cambio" type="button" class="btn btn-lg btn-lg-square btn-outline-secondary  icon icon-sync w-100 loading-icon" data-toggle="tooltip" data-html="true" title="<em>Cambiar </em><u>moneda</u>"><i class="fas fa-sync-alt"></i></button>
+                                    </div>
+                                    <input type="hidden" id="cambioValor" name="cambioValor" value="Soles">
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-6 pr-md-6 pl-4">
+                                            <input type="text" id="recibir" name="recibir" class="form-control rounded-bottom size-tipo-cambio" placeholder="Recibire" onkeypress="return isNumberKey(event)" required>
+                                    </div>
+                                     <div class="col-md-6 pr-md-6 pl-4 bg-secondary text-white rounded-bottom">
+                                         <div class="d-flex justify-content-center">
+                                             <p class="text-center  font-italic mb-0" style="padding: 0.5rem 1rem;"><span id="tipoMonedaRecibir" name="tipoMonedaRecibir">Dolares</span> a recibir (Salida)</p>
+                                         </div>
+                                     </div>
+                                </div>
+
+                                 <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xl-6">
+                                            <label class="form-check-label">Cancela con</label>
+                                            <input type="number" class="form-control" onkeypress="return isNumber(event)" id="CancelaCon" name="CancelaCon" required="required" placeholder="0.00"  min="0" value="0" step="0.01" pattern="^\d+(?:\.\d{1,2})?$" onblur="
+                                            this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                            ">
+                                        </div>
+                                        <div class="col-sm-6 col-xl-6">
+                                              <label class="form-check-label">Vuelto</label>
+                                            <span class="input-group-text" id="vuelto" name="vuelto">0.0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-check-label">Descripción</label>
+                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="Descripcion">
+                                </div>
+
+                                <button type="submit" class="btn btn-lg btn-primary w-100" onclick="clickRegistrarCompraYVentaDolar(this)" >Registrar</button>
+                                <br>
+                            </form>
+
+                             {% with messages = get_flashed_messages(category_filter=["success"])  %}
+                                  {% if messages %}
+                                      {% for message in messages %}
+                                      <br>
+                                      <a href="/compraventadolarimpresion/{{tipoCambioValor}}/{{montoEnviar}}/{{montoRecibir}}/{{tipoMonedaEnviar}}/{{tipoMonedaRecibir}}/{{Fecha}}/{{operacionid}}" target="_blank">Imprimir Comprobante</a>
+                                      <!--<a href="/static/uploads/{{operacionid}}.pdf" target="_blank">Imprimir Comprobante</a>-->
+                                      <br>
+                                      <br>
+                                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                      {% endfor %}
+                                  {% endif %}
+                            {% endwith %}
+
+                            {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                            {% if errors %}
+                                 {% for message in errors %}
+                                    <br>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                              <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                 {% endfor %}
+                            {% endif %}
+                            {% endwith %}
+
+                        </div>
+                    </div>
+
+                    <!--<div class="col-sm-12 col-md-6">
+                        <div id="div_iframe" name="div_iframe" style="overflow: hidden; margin: 15px auto; max-width: 900px;  max-height:75px  border-style: inset;
+                          border-color: grey;
+                          overflow: scroll;
+                          height: 500px;
+                          width: 90%">
+                             <iframe  id="iframe" name="iframe" src="https://cuantoestaeldolar.pe/" width="100%" height="100%" align="center"></iframe>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+      </form>
+            <!-- Form End -->
+<script>
+document.getElementById('iframe').onload = function(){ setTimeout("document.getElementById('iframe').contentWindow.scrollTo(50, 20)", 1) }
+document.getElementById('div_iframe').scrollTop = 7000
+</script>
+{% endblock %}
+
+

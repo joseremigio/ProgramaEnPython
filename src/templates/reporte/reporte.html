@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(category_filter=["success"])  %}
+      {% if messages %}
+          {% for message in messages %}
+          <br>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          {% endfor %}
+      {% endif %}
+{% endwith %}
+
+{% with errors = get_flashed_messages(category_filter=["error"]) %}
+{% if errors %}
+     {% for message in errors %}
+        <br>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+            </button>
+        </div>
+     {% endfor %}
+{% endif %}
+{% endwith %}
+
+<br/>
+<div class="col-sm-12 col-xl-12">
+                        <div class="bg-light text-center rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Ingreso Mensual</h6>
+                            </div>
+                            <form action="{{url_for('home')}}" method="POST">
+                                <div class="table-responsive row justify-content-center mb-4">
+                                    <div class="col-lg-3 col-sm-6">
+                                        <select id="anio" name="anio" class="form-select mb-3" />
+                                             <option value="2022">2022</option>
+                                             <option value="2023">2023</option>
+                                             <option value="2024">2024</option>
+                                             <option value="2025">2025</option>
+                                         </select>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                        <select id="mes" name="mes" class="form-select mb-3" />
+                                             <option value="1">Enero</option>
+                                             <option value="2">Febrero</option>
+                                             <option value="3">Marzo</option>
+                                             <option value="4">Abril</option>
+                                             <option value="5">Mayo</option>
+                                             <option value="6">Junio</option>
+                                             <option value="7">Julio</option>
+                                             <option value="8">Agosto</option>
+                                             <option value="9">Septiembre</option>
+                                             <option value="10">Octubre</option>
+                                             <option value="11">Noviembre</option>
+                                             <option value="12">Diciembre</option>
+                                         </select>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-6">
+                                         <a name="buscaeReporte" id="buscaeReporte" href="/reporte/2022/7"  class="btn btn-lg btn-primary">Buscar</a>
+                                    </div>
+                                </div>
+                             </form>
+                            <canvas id="salse-revenue"></canvas>
+                        </div>
+</div>
+<!-- Form End -->
+
+ <!-- Recent Sales Start -->
+            <div class="col-sm-12 col-xl-12 pt-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Suma de ingreso diario:</h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col"><input class="form-check-input" type="checkbox"></th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Monto Inicial</th>
+                                    <th scope="col">Monto Final Calculado</th>
+                                    <th scope="col">Monto Final Real</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             {% for row in list_cajas %}
+                                <tr>
+                                    <td><input class="form-check-input" type="checkbox"></td>
+                                    <td>{{ row[3].strftime("%d-%m-%Y") }}</td>
+                                    <td>{{ row[0] }}</td>
+                                    <td>{{ row[1] }}</td>
+                                    <td>{{ row[2] }}</td>
+                                    <td><!--<a class="btn btn-sm btn-primary" href="">Detail</a>--></td>
+                                </tr>
+                             {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Sales End -->
+
+        <script type="text/javascript">
+            dias = {{dias|tojson}}
+            montosiniciales = {{montosiniciales|tojson}}
+            montosfinalcalculados = {{montosfinalcalculados|tojson}}
+            montosfinalreales = {{montosfinalreales|tojson}}
+         </script>
+
+{% endblock %}

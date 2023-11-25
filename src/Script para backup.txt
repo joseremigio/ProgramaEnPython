@@ -1,0 +1,30 @@
+-- Sacar backup
+pg_dump -U postgres -W -h localhost agente> bd_agente.sql
+
+-- Restaurar BD
+
+psql -U postgres -W -h localhost agente_2023 < basename_1111_2.sql
+
+
+
+Ruta:
+C:\Program Files\PostgreSQL\14\bin 
+
+Ejecutar aplicacion: 
+
+C:\ProgramaFullPago\ProgramaEnPython\venv\Scripts\python.exe C:/ProgramaFullPago/ProgramaEnPython/src/index.py
+
+-- Scrip para reportes:
+
+-- Obetener la cantidad de operaciones por mes y banco:
+select 
+ba.nombre, 
+count(ba.nombre) as cantidad, 
+EXTRACT(MONTH FROM op.fechaoperacion) as mes, 
+EXTRACT(YEAR FROM op.fechaoperacion) as anio,
+sum (op.comision) as comision
+from operaciones op  
+left join banco ba on ba.bancoid = op.bancoid
+--where op.fechaoperacion between '2023-02-01 00:00:00' and '2023-02-28 23:59:59'
+group by ba.nombre, EXTRACT(MONTH FROM op.fechaoperacion),EXTRACT(YEAR FROM op.fechaoperacion)
+order by EXTRACT(YEAR FROM op.fechaoperacion) desc, EXTRACT(MONTH FROM op.fechaoperacion) desc, cantidad desc
